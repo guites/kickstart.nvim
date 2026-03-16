@@ -448,6 +448,19 @@ require('lazy').setup({
           -- Useful when you're not sure what type a variable is and you want to see
           -- the definition of its *type*, not where it was *defined*.
           vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+
+          -- In this case, we create a function that lets us more easily define mappings specific
+          -- for LSP related items. It sets the mode, buffer and description for us each time.
+          local map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          end
+
+          ---- lsp mappings ----
+          map('<leader>la', vim.lsp.buf.code_action, 'Code [A]ction')
+
+          -- see `:help K` for why this keymap
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
         end,
       })
 
