@@ -613,6 +613,16 @@ require('lazy').setup({
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
+          vim.keymap.set('n', '<leader>tl', function()
+            local new_config = not vim.diagnostic.config().virtual_lines
+            vim.diagnostic.config { virtual_lines = new_config }
+          end, { desc = '[T]oggle Diagnostic Virtual [L]ines' })
+
+          vim.keymap.set('n', '<leader>tt', function()
+            local cfg = vim.diagnostic.config()
+            vim.diagnostic.config { virtual_text = not cfg.virtual_text }
+          end, { desc = '[T]oggle Diagnostic Virtual [T]ext' })
+
           if client and client:supports_method('textDocument/inlayHint', event.buf) then
             map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
           end
