@@ -41,7 +41,20 @@ return {
       { '<F7>', function() require('dapui').toggle() end, desc = 'Debug: See last session result.' },
       {
         '<leader>bpt',
-        function() require('dap-python').test_method() end,
+        function()
+          require('dap-python').test_method {
+            test_runner = 'django',
+            config = {
+              django = true,
+              justMyCode = true,
+              cwd = vim.fn.getcwd() .. '/backend',
+              env = {
+                DJANGO_SETTINGS_MODULE = 'project.settings',
+                PYTHONPATH = vim.fn.getcwd(),
+              },
+            },
+          }
+        end,
         desc = 'Debug Method',
         ft = 'python',
       },
