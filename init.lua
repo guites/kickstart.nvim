@@ -203,6 +203,20 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
+  -- Instala o plugin de selecionar a venv para python
+  {
+    'linux-cultist/venv-selector.nvim',
+    cmd = 'VenvSelect',
+    opts = {
+      options = {
+        notify_user_on_venv_activation = true,
+        override_notify = false,
+      },
+    },
+    --  Call config for Python files and load the cached venv automatically
+    ft = 'python',
+    keys = { { '<leader>bpv', '<cmd>:VenvSelect<cr>', desc = 'Select VirtualEnv', ft = 'python' } },
+  },
   { 'NMAC427/guess-indent.nvim', opts = {} },
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
