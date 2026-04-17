@@ -108,6 +108,10 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Fixes :diffget for vim-fugitive
+-- see https://github.com/neovim/neovim/issues/22696#issuecomment-3906586437
+vim.opt.diffopt:remove 'linematch:40'
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -864,7 +868,7 @@ require('lazy').setup({
       --  Check out: https://github.com/nvim-mini/mini.nvim
     end,
   },
-
+  { 'tpope/vim-fugitive' },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
